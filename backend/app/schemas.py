@@ -1,26 +1,27 @@
-"""
-Schemas for request and response validation.
-"""
-
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 class UserBase(BaseModel):
-    username: str
-    email: str
+    """Базовая схема пользователя."""
+    email: EmailStr
 
 class UserCreate(UserBase):
+    """Схема для регистрации пользователя."""
     password: str
+    is_superuser: bool = False  # По умолчанию создаётся обычный пользователь
 
-class User(UserBase):
+class UserResponse(UserBase):
+    """Схема для отображения информации о пользователе."""
     id: int
+    is_superuser: bool
 
     class Config:
-        orm_mode: True
+        orm_mode = True
 
-class TokenData(BaseModel):
-    """Schema for token data validation."""
-    sub: str
-    
 class Token(BaseModel):
+    """Схема ответа при успешной аутентификации."""
     access_token: str
     token_type: str
+
+class TokenData(BaseModel):
+    """Схема декодированных данных JWT-токена."""
+    email: str | None = None

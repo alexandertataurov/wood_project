@@ -1,17 +1,12 @@
 from fastapi import FastAPI
-from app.routers.logs import router as logs_router
-from app.routers.reports import router as reports_router
-from app.routers.inventory import router as inventory_router
-from app.routers.auth import router as auth_router
+from app.database import init_db
+from app.routers import router, auth
+
 
 app = FastAPI()
 
-app.include_router(auth_router, prefix="/auth", tags=["Auth"])
-app.include_router(logs_router, prefix="/logs", tags=["Logs"])
-app.include_router(reports_router, prefix="/reports", tags=["Reports"])
-app.include_router(inventory_router, prefix="/inventory", tags=["Inventory"])
+# Создаём таблицы при старте приложения
+init_db()
+app = FastAPI(swagger_ui_oauth2_redirect_url="/docs/oauth2-redirect")
 
-
-@app.get("/")
-def root():
-    return {"message": "Wood Tracking API is running"}
+app.include_router(router)
