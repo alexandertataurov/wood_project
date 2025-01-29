@@ -2,9 +2,9 @@
 Database models for application.
 """
 
+from datetime import datetime  # Стандартные импорты должны быть первыми
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime
 from app.database import Base
 
 class User(Base):
@@ -38,6 +38,11 @@ class Log(Base):
 
     def to_dict(self):
         """Convert Log object to dictionary."""
-        return {"id": self.id, "user_id": self.user_id, "action": self.action, "timestamp": self.timestamp}
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "action": self.action,
+            "timestamp": self.timestamp
+        }
 
 User.logs = relationship("Log", back_populates="user")

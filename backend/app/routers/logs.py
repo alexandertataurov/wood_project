@@ -5,7 +5,7 @@ Routes for log management.
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends
 from app.database import get_db
-from app.auth import get_current_user
+from app.routers.auth import get_current_user
 from app.models import Log  # Убедимся, что Log определён
 
 router = APIRouter()

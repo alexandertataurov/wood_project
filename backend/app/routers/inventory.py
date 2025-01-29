@@ -3,7 +3,7 @@ Routes for inventory management.
 """
 
 from fastapi import APIRouter, Depends
-from app.auth import get_current_user  # Проверил, что функция есть
+from app.routers.auth import get_current_user  # Проверил, что функция есть
 
 router = APIRouter()
 

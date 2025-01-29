@@ -5,13 +5,22 @@ Schemas for request and response validation.
 from pydantic import BaseModel
 
 class UserBase(BaseModel):
-    """Base user schema."""
+    username: str
     email: str
 
 class UserCreate(UserBase):
-    """User schema for creation."""
     password: str
+
+class User(UserBase):
+    id: int
+
+    class Config:
+        orm_mode: True
 
 class TokenData(BaseModel):
     """Schema for token data validation."""
     sub: str
+    
+class Token(BaseModel):
+    access_token: str
+    token_type: str
