@@ -1,13 +1,19 @@
+"""
+Database connection module.
+"""
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql+psycopg2://admin:password@localhost/wood_tracking"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"  # Или ваша база данных
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def get_db():
+    """Provide a session for database operations."""
     db = SessionLocal()
     try:
         yield db

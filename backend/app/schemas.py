@@ -1,10 +1,17 @@
-from pydantic import BaseModel
-from datetime import datetime
+"""
+Schemas for request and response validation.
+"""
 
-class UserCreate(BaseModel):
-    username: str
+from pydantic import BaseModel
+
+class UserBase(BaseModel):
+    """Base user schema."""
+    email: str
+
+class UserCreate(UserBase):
+    """User schema for creation."""
     password: str
 
-class LogCreate(BaseModel):
-    action: str
-    timestamp: datetime
+class TokenData(BaseModel):
+    """Schema for token data validation."""
+    sub: str
