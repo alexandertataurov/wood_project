@@ -1,12 +1,17 @@
 from fastapi import FastAPI
-from app.database import init_db
-from app.routers import router, auth
-
+from fastapi.middleware.cors import CORSMiddleware
+from app.routers import auth
 
 app = FastAPI()
 
-# Создаём таблицы при старте приложения
-init_db()
-app = FastAPI(swagger_ui_oauth2_redirect_url="/docs/oauth2-redirect")
+# 🔥 Настраиваем CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Разрешаем все источники (поменяй на домен фронтенда)
+    allow_credentials=True,
+    allow_methods=["*"],  # Разрешаем все методы (GET, POST, OPTIONS и т. д.)
+    allow_headers=["*"],  # Разрешаем все заголовки
+)
 
-app.include_router(router)
+# Подключаем маршруты
+app.include_router(auth.router)

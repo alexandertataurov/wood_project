@@ -1,3 +1,7 @@
+"""
+Pydantic-схемы для валидации данных.
+"""
+
 from pydantic import BaseModel, EmailStr
 
 class UserBase(BaseModel):

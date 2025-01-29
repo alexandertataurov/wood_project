@@ -1,7 +1,11 @@
+"""
+Модели базы данных.
+"""
+
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()  # Переносим сюда!
+Base = declarative_base()  # Перенесли сюда!
 
 class User(Base):
     """Модель пользователя."""
@@ -10,4 +14,4 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    is_superuser = Column(Boolean, default=False)  # Флаг суперпользователя
+    is_superuser = Column(Boolean, default=False)
